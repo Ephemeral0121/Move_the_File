@@ -156,7 +156,7 @@ class MyApp(QWidget):
                 return
             processed_files = []
             for file_name in os.listdir(self.source_folder):
-                if any(keyword in file_name for keyword in keywords):
+                if any(keyword in file_name for keyword in keywords if keyword):
                     source_file = os.path.join(self.source_folder, file_name)
                     target_file = os.path.join(self.target_folder, file_name)
                     # Move or copy the file
