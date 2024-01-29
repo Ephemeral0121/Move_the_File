@@ -1,11 +1,20 @@
 from PyQt5.QtWidgets import QDesktopWidget, QApplication, QWidget, QVBoxLayout, QPushButton, QFileDialog, QTextEdit, QLabel, QComboBox, QSizePolicy, QLineEdit, QMessageBox, QPlainTextEdit
 from collections import deque
+from PyQt5.QtGui import QIcon
 import sys
 import os
 import shutil
 import pickle
 
 class MovetheFile(QWidget):
+
+    def resource_path(self, relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        return os.path.join(base_path, relative_path)
+    
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -17,6 +26,9 @@ class MovetheFile(QWidget):
 
         # 최근 사용된 폴더 목록
         self.recent_folders = self.load_recent_folders()
+
+        # 아이콘 세팅
+        self.setWindowIcon(QIcon(self.resource_path("move_the_file_icon.png")))  
 
         # 사용자 인터페이스 설정
         vbox = QVBoxLayout()
@@ -200,4 +212,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MovetheFile()
     sys.exit(app.exec_())
-
